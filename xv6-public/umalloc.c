@@ -66,7 +66,9 @@ malloc(uint nbytes)
   Header *p, *prevp;
   uint nunits;
 
+//  printf(1,"Header size : %d\n", sizeof(Header));
   nunits = (nbytes + sizeof(Header) - 1)/sizeof(Header) + 1;
+//  printf(1,"nunits size : %d\n", nunits);
   if((prevp = freep) == 0){
     base.s.ptr = freep = prevp = &base;
     base.s.size = 0;

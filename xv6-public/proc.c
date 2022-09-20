@@ -112,6 +112,8 @@ found:
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
 
+  // 새로 할당하는 proc의 mask를 0으로 초기화 
+  p->mask = 0;
   return p;
 }
 

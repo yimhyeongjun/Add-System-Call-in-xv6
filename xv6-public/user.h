@@ -23,8 +23,8 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-int memsize(void); // user_defined sys_memsize system call
-int trace(int); //user_defined sys_trace system call
+int memsize(void); // memsize system call 추가
+int trace(int); //trace system call 추가
 
 // ulib.c
 int stat(const char*, struct stat*);

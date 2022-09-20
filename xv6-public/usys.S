@@ -29,5 +29,6 @@ SYSCALL(getpid)
 SYSCALL(sbrk)
 SYSCALL(sleep)
 SYSCALL(uptime)
+// system call 추가
 SYSCALL(memsize)
 SYSCALL(trace)
