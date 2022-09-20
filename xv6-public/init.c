@@ -6,7 +6,6 @@
 #include "fcntl.h"
 
 char *argv[] = { "ssu_login", 0 };
-
 int
 main(void)
 {

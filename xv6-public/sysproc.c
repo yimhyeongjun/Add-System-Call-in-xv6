@@ -89,3 +89,20 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+int
+sys_memsize(void){
+	uint size;
+	struct proc *p;
+	p = myproc();
+	size = p->sz;
+	return size;
+}
+
+// trace system call
+int
+sys_trace(void){
+	
+	if(argint(0, &myproc()->mask) < 0) return -1;	
+	return 0;
+}

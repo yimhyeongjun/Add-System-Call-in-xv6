@@ -18,9 +18,10 @@ int
 fetchint(uint addr, int *ip)
 {
   struct proc *curproc = myproc();
-
+  // addr가 현재 프로세스의 크기보다 크거나 같을 시 리턴 -1
   if(addr >= curproc->sz || addr+4 > curproc->sz)
     return -1;
+  // addr가 현재 프로세스의 크기보다 작을 시 ip에 addr 저장
   *ip = *(int*)(addr);
   return 0;
 }
@@ -49,6 +50,7 @@ fetchstr(uint addr, char **pp)
 int
 argint(int n, int *ip)
 {
+// 현재 프로세스의 trapframe의 esp+4+4*n과 인자로 받은 ip(현재 프로세스의 mask) 
   return fetchint((myproc()->tf->esp) + 4 + 4*n, ip);
 }
 
@@ -103,6 +105,8 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
+extern int sys_memsize(void); // sys_memsize system call 추가
+extern int sys_trace(void); // sys_trace system call 추가
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -126,6 +130,34 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+[SYS_memsize] sys_memsize, // sys_memsize system call 추가
+[SYS_trace] sys_trace, // sys_trace system call 추가
+};
+
+char syscallname[50][10] = {
+"fork",
+"exit",
+"wait",
+"pipe",
+"read",
+"kill",
+"exec",
+"fstat",
+"chdir",
+"dup",
+"getpid",
+"sbrk",
+"sleep",
+"uptime",
+"open",
+"write",
+"mknod",
+"unlink",
+"link",
+"mkdir",
+"close",
+"memsize",
+"trace"
 };
 
 void
@@ -141,5 +173,9 @@ syscall(void)
     cprintf("%d %s: unknown sys call %d\n",
             curproc->pid, curproc->name, num);
     curproc->tf->eax = -1;
+  }
+
+  if(curproc->mask >> num){
+		cprintf("syscall traced: pid = %d, syscall = %s, %d returned\n", curproc->pid, syscallname[num-1], curproc->tf->eax);
   }
 }

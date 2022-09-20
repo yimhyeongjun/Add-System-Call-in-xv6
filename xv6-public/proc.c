@@ -181,8 +181,8 @@ int
 fork(void)
 {
   int i, pid;
-  struct proc *np;
-  struct proc *curproc = myproc();
+  struct proc *np; // 자식 프로세스
+  struct proc *curproc = myproc(); // curproc에 현재 프로세스 저장
 
   // Allocate process.
   if((np = allocproc()) == 0){
@@ -196,6 +196,8 @@ fork(void)
     np->state = UNUSED;
     return -1;
   }
+
+  np->mask = curproc->mask; // 현재 프로세스의 mask를 np mask에 복사
   np->sz = curproc->sz;
   np->parent = curproc;
   *np->tf = *curproc->tf;
@@ -532,3 +534,4 @@ procdump(void)
     cprintf("\n");
   }
 }
+
