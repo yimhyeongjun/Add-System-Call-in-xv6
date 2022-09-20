@@ -50,7 +50,7 @@ void get_user_list(){
 			c++;
 		}
 	}
-	
+	close(fd);	
 }
 
 int check_idpw(){
