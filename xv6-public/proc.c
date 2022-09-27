@@ -332,7 +332,7 @@ scheduler(void)
   
   for(;;){
     // Enable interrupts on this processor.
-    sti();
+    sti(); // x86.h -> sti() -> asm volatile("sti") -> Set Interrupt Memory
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);

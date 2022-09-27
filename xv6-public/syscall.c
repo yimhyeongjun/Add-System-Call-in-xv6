@@ -178,7 +178,7 @@ syscall(void)
 
   // curproc의 mask를 시스템 콜 번호 만큼 shift하여 현재 프로세스에서 호출된 시스템콜이 마스킹되어 있는지 확인
   // mask에서 시스템 콜 번호에 해당하는 비트가 1이라면 출력 
-  if((curproc->mask >> num) == 1){
+  if((curproc->mask >> num) & 1){
 		cprintf("syscall traced: pid = %d, syscall = %s, %d returned\n", curproc->pid, syscallname[num-1], curproc->tf->eax);
   }
 }

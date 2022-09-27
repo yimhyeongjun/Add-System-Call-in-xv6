@@ -51,6 +51,7 @@ morecore(uint nu)
 
   if(nu < 4096)
     nu = 4096;
+//  printf(1,"nu = %d\n", nu);
   p = sbrk(nu * sizeof(Header));
   if(p == (char*)-1)
     return 0;
@@ -70,14 +71,18 @@ malloc(uint nbytes)
   nunits = (nbytes + sizeof(Header) - 1)/sizeof(Header) + 1;
 //  printf(1,"nunits size : %d\n", nunits);
   if((prevp = freep) == 0){
+//	  printf(1, "1 : prevp == 0\n");
     base.s.ptr = freep = prevp = &base;
     base.s.size = 0;
   }
   for(p = prevp->s.ptr; ; prevp = p, p = p->s.ptr){
     if(p->s.size >= nunits){
-      if(p->s.size == nunits)
+      if(p->s.size == nunits){
+//	      printf(1, "2-1 : \n");
         prevp->s.ptr = p->s.ptr;
+      }
       else {
+//	      printf(1,"2-2 : \n");
         p->s.size -= nunits;
         p += p->s.size;
         p->s.size = nunits;
@@ -85,6 +90,7 @@ malloc(uint nbytes)
       freep = prevp;
       return (void*)(p + 1);
     }
+//    printf(1,"end\n");
     if(p == freep)
       if((p = morecore(nunits)) == 0)
         return 0;
