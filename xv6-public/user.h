@@ -25,6 +25,8 @@ int sleep(int);
 int uptime(void);
 int memsize(void); // memsize system call 추가
 int trace(int); //trace system call 추가
+void weightset(int); // weightset system call 추가
+		
 
 // ulib.c
 int stat(const char*, struct stat*);

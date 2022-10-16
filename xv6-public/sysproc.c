@@ -106,3 +106,12 @@ sys_trace(void){
 	if(argint(0, &myproc()->mask) < 0) return -1;	
 	return 0;
 }
+
+int
+sys_weightset(void){
+	int weight;
+	if(argint(0, &weight) < 0) return -1;
+	if(weight == 0) return -1;
+	do_weightset(weight);
+	return 0;
+}

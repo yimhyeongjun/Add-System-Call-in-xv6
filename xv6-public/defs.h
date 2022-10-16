@@ -101,7 +101,7 @@ void            pipeclose(struct pipe*, int);
 int             piperead(struct pipe*, char*, int);
 int             pipewrite(struct pipe*, char*, int);
 
-//PAGEBREAK: 16
+// PAGEBREAK: 16
 // proc.c
 int             cpuid(void);
 void            exit(void);
@@ -120,6 +120,8 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
+void		do_weightset(int); // ADD_2 : do_weightset 추가
+				   
 
 // swtch.S
 void            swtch(struct context**, struct context*);

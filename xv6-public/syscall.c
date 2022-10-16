@@ -107,6 +107,7 @@ extern int sys_write(void);
 extern int sys_uptime(void);
 extern int sys_memsize(void); // sys_memsize system call 추가
 extern int sys_trace(void); // sys_trace system call 추가
+extern int sys_weightset(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -132,6 +133,7 @@ static int (*syscalls[])(void) = {
 [SYS_close]   sys_close,
 [SYS_memsize] sys_memsize, // sys_memsize system call 추가
 [SYS_trace] sys_trace, // sys_trace system call 추가
+[SYS_weightset] sys_weightset,
 };
 
 // trace 시스템 콜 결과로 출력할 때 시스템 콜 이름을 쉽게 하기 위한 배열
@@ -158,7 +160,8 @@ char syscallname[50][10] = {
 "mkdir",
 "close",
 "memsize",
-"trace"
+"trace",
+"weightset"
 };
 
 void

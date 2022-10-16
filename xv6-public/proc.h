@@ -51,6 +51,8 @@ struct proc {
   char name[16];               // Process name (debugging)
   
   int mask;		   // system call mask 추가
+  long long priority;			// scheduling priority
+  int weight;			// process의 weight
 };
 
 // Process memory is laid out contiguously, low addresses first:
