@@ -8,7 +8,7 @@
 #include "spinlock.h"
 
 // ADD : Time slice와 weight 추가
-#define TIME_SLICE 0000000
+#define TIME_SLICE 10000000
 #define NULL ((void *)0)
 int weight = 1;
 
